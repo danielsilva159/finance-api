@@ -11,25 +11,23 @@ export class ItemService {
     @InjectRepository(ItemEntity)
     private itemRepository: Repository<ItemEntity>,
   ) {}
-  async create(createItemDto: CreateItemDto) {
+  async save(createItemDto: CreateItemDto) {
     return await this.itemRepository.save(createItemDto);
   }
 
   findAllMouth(mouth: string) {
     return this.itemRepository
       .query(`SELECT id, nome, data, tipo, valor, created_at, updated_at, deleted_at
-    FROM public.item where EXTRACT(MONTH from data) = ${mouth}`);
+    FROM public.item where EXTRACT(MONTH from data) = ${mouth} ORDER BY id ASC`);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} item`;
+  private findOne(id: number) {
+    return this.itemRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} item`;
+  async remove(id: number) {
+    const item = this.findOne(id);
+    if (!item) throw new Error('Esse item não existe');
+    await this.itemRepository.delete({ id });
   }
 }

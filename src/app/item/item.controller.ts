@@ -17,20 +17,13 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Post()
-  create(@Body() item: CreateItemDto) {
-    return this.itemService.create(item);
+  save(@Body() item: CreateItemDto) {
+    return this.itemService.save(item);
   }
 
   @Get()
   findAllMouth(@Query() data: any) {
-    console.log(data.mouth);
-
     return this.itemService.findAllMouth(data.mouth);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemService.update(+id, updateItemDto);
   }
 
   @Delete(':id')

@@ -10,7 +10,7 @@ import {
 @Entity({ name: 'item' })
 export class ItemEntity {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
   nome: string;
