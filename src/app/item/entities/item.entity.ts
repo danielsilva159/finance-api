@@ -24,6 +24,9 @@ export class ItemEntity {
   @Column({ nullable: false, type: 'decimal' })
   valor: number;
 
+  @Column({ default: false })
+  pago: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
 

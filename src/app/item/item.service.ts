@@ -16,8 +16,7 @@ export class ItemService {
   }
 
   findAllMouth(mouth: string) {
-    return this.itemRepository
-      .query(`SELECT id, nome, data, tipo, valor, created_at, updated_at, deleted_at
+    return this.itemRepository.query(`SELECT *
     FROM public.item where EXTRACT(MONTH from data) = ${mouth} ORDER BY id ASC`);
   }
 
