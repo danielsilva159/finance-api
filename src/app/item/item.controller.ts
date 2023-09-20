@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { JwtAuthGuard } from '../users/guards/jwt-auth.guard';
 
 @Controller('item')
 export class ItemController {
@@ -21,6 +23,7 @@ export class ItemController {
     return this.itemService.save(item);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAllMouth(@Query() data: any) {
     return this.itemService.findAllMouth(data.mouth);

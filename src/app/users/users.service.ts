@@ -37,6 +37,7 @@ export class UsersService {
     const payload = { email: body.email, sub: body.id, name: body.name };
     return {
       access_token: this.jwtService.sign(payload),
+      payload,
     };
   }
 
@@ -47,7 +48,8 @@ export class UsersService {
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.findUseEmail(email);
-    const pass = bcrypt.compare(password, user.password);
+    const pass = await bcrypt.compare(password, user.password);
+
     if (user && pass) {
       const result: LoginUserDto = {
         id: user.id,

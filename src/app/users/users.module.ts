@@ -14,7 +14,7 @@ import { PassportModule } from '@nestjs/passport';
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '3600s' },
     }),
     PassportModule,
   ],
