@@ -5,7 +5,9 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
 } from 'typeorm';
+import { ItemEntity } from '../item/entities/item.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -20,6 +22,9 @@ export class UserEntity {
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
   password: string;
+
+  @OneToMany(() => ItemEntity, (item) => item.user)
+  itens: ItemEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
@@ -20,13 +21,16 @@ export class ItemController {
 
   @Post()
   save(@Body() item: CreateItemDto) {
-    return this.itemService.save(item);
+    if (item.id) {
+      return this.itemService.save(item);
+    }
+    return this.itemService.saveSeveralOnce(item);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
   findAllMouth(@Query() data: any) {
-    return this.itemService.findAllMouth(data.mouth);
+    return this.itemService.findAllMouth(data);
   }
 
   @Delete(':id')

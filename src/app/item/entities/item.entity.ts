@@ -1,3 +1,4 @@
+import { UserEntity } from 'src/app/users/users.entity';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -5,6 +6,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity({ name: 'item' })
@@ -26,6 +28,9 @@ export class ItemEntity {
 
   @Column({ default: false })
   pago: boolean;
+
+  @ManyToOne(() => UserEntity, (user) => user.itens)
+  user: UserEntity;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
